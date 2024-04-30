@@ -41,6 +41,9 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   day_night_switch: ^1.0.4
   flutter_charts: ^0.5.2
+  collection: ^1.18.0
+  buttons_flutter: ^0.0.2+1
+  switcher_button: ^0.0.4
 
   flutter_localizations:
     sdk: flutter

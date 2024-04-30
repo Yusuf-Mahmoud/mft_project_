@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:mft_final_project/Tabs/Books/addbook.dart';
+import 'package:mft_final_project/Tabs/Books/bookbuttonadd.dart';
 import 'package:mft_final_project/module/books.dart';
 
 class BookTab extends StatefulWidget {
@@ -70,7 +70,14 @@ class _BookTabState extends State<BookTab> {
               }
             });
           },
-          child: const Text('Add Book', style: TextStyle(fontSize: 20)),
+          style: Theme.of(context).elevatedButtonTheme.style,
+          child: Text(
+            'Add Book',
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.button?.color ?? Colors.black,
+            ),
+          ),
         ),
         SizedBox(
           height: 40,

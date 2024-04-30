@@ -169,14 +169,6 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 70),
-                    FadeInUp(
-                      duration: Duration(milliseconds: 2000),
-                      child: Text(
-                        "Forgot Password?",
-                        style:
-                            TextStyle(color: Color.fromRGBO(143, 148, 251, 1)),
-                      ),
-                    ),
                   ],
                 ),
               ),

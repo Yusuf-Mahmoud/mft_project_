@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mft_final_project/Tabs/settings/settingprovider.dart';
-import 'package:mft_final_project/Theme.dart';
 import 'package:provider/provider.dart';
-import 'package:toggle_switch/toggle_switch.dart';
+import 'package:switcher_button/switcher_button.dart';
 
 class SettingsTab extends StatefulWidget {
   @override
@@ -19,58 +17,116 @@ class _SettingsTabState extends State<SettingsTab> {
       builder: (BuildContext context, value, Widget? child) => Container(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 20),
-              ElevatedButton(onPressed: (){
-                if(settingsProvider.themeMode == ThemeMode.light){
-                  settingsProvider.changetheme(ThemeMode.dark);
-                }else{
-                  settingsProvider.changetheme(ThemeMode.light);
-                }
-              }, child: child),
-
-              ElevatedButton(
-                onPressed: () {
-                  if (settingsProvider.languagecode == 'ar') {
-                    settingsProvider.changelanguage('en');
-                  } else {
-                    settingsProvider.changelanguage('ar');
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                ),
-                child: Icon(
-                  Icons.language,
-                  size: 40,
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Theme Mode:',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Light',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SwitcherButton(
+                            size: 80.0,
+                            onColor: Colors.pinkAccent,
+                            offColor: Colors.grey,
+                            value: settingsProvider.themeMode == ThemeMode.dark,
+                            onChange: (value) {
+                              if (value) {
+                                settingsProvider.changetheme(ThemeMode.dark);
+                              } else {
+                                settingsProvider.changetheme(ThemeMode.light);
+                              }
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Dark',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              // SizedBox(height: 20),
-              // ElevatedButton(
-              //   onPressed: () {
-              //     if (settingsProvider.themeMode == ThemeMode.light) {
-              //       settingsProvider.changetheme(ThemeMode.dark);
-              //     } else {
-              //       settingsProvider.changetheme(ThemeMode.light);
-              //     }
-              //   },
-              //   style: ElevatedButton.styleFrom(
-              //     foregroundColor: Colors.white,
-              //     backgroundColor: Colors.blue,
-              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              //     shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(10)),
-              //   ),
-              //   child: Icon(
-              //     Icons.lightbulb,
-              //     size: 40,
-              //   ),
-              // ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 50),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Language:',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'English',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SwitcherButton(
+                            size: 80.0,
+                            onColor: Colors.pinkAccent,
+                            offColor: Colors.grey,
+                            value: settingsProvider.languagecode == 'ar',
+                            onChange: (value) {
+                              if (value) {
+                                settingsProvider.changelanguage('ar');
+                              } else {
+                                settingsProvider.changelanguage('en');
+                              }
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'العربية',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

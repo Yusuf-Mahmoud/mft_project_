@@ -113,6 +113,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "8.9.2"
+  buttons_flutter:
+    dependency: "direct main"
+    description:
+      name: buttons_flutter
+      sha256: "0a8446f30fc5210187e876b030feaa66465a0cfac17f27f6dad3c70c62853e79"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+1"
   characters:
     dependency: transitive
     description:
@@ -146,7 +154,7 @@ packages:
     source: hosted
     version: "4.10.0"
   collection:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: collection
       sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
@@ -677,6 +685,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  switcher_button:
+    dependency: "direct main"
+    description:
+      name: switcher_button
+      sha256: "532fa81813faf0fd21f233b75e0ca955512b86b6f784fd33804a5ababa4ac71b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   term_glyph:
     dependency: transitive
     description:

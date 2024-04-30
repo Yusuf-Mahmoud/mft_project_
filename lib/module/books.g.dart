@@ -23,7 +23,7 @@ class BooksAdapter extends TypeAdapter<Books> {
       genre: fields[3] as String,
       publishedDate: fields[4] as DateTime,
       copiesAvailable: fields[5] as int,
-      bookpage: fields[6] as int,
+      bookpage: fields[6] as int?,
     );
   }
 

@@ -22,12 +22,14 @@ class apptheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor:
-            MaterialStateProperty.all(Containerbackgroundcolorlight),
+            MaterialStateProperty.all(apptheme.backgroundcolorlight),
         textStyle: MaterialStateProperty.all(TextStyle(color: Colors.black)),
       ),
     ),
+    textTheme: TextTheme(
+      button: TextStyle(color: Colors.black), // Change this color
+    ),
   );
-
   static ThemeData darktheme = ThemeData(
     scaffoldBackgroundColor: backgroundcolordark,
     appBarTheme: AppBarTheme(
@@ -42,6 +44,9 @@ class apptheme {
         backgroundColor: MaterialStateProperty.all(primarycolor),
         textStyle: MaterialStateProperty.all(TextStyle(color: Colors.white)),
       ),
+    ),
+    textTheme: TextTheme(
+      button: TextStyle(color: Colors.white), // Change this color
     ),
   );
 }

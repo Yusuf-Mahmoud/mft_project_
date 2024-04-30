@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:mft_final_project/Tabs/Members/add.dart';
+import 'package:mft_final_project/Tabs/Members/memberbuttonadd.dart';
 import 'package:mft_final_project/module/member.dart';
 
 class MembersTab extends StatefulWidget {
@@ -167,8 +167,16 @@ class _MembersTabState extends State<MembersTab> {
               }
             });
           },
-          child: const Text('Add Member', style: TextStyle(fontSize: 20)),
+          style: Theme.of(context).elevatedButtonTheme.style,
+          child: Text(
+            'Add Member',
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.button?.color ?? Colors.black,
+            ),
+          ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

@@ -63,13 +63,12 @@ class _AddBorrowedState extends State<AddBorrowed> {
                   borrowedDate: DateTime.now(),
                   returnDate: DateTime.now().add(Duration(days: 3)),
                 );
-                BorrowedBook? existingBorrowedBook =
-                    widget.borrowedBooks.firstWhere(
-                  (borrowedBook) =>
-                      borrowedBook.membercode == newBorrowedBook.membercode,
-                );
 
-                if (existingBorrowedBook != null) {
+                bool isAlreadyBorrowed = widget.borrowedBooks.any(
+                    (borrowedBook) =>
+                        borrowedBook.membercode == newBorrowedBook.membercode);
+
+                if (isAlreadyBorrowed) {
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
@@ -84,11 +83,20 @@ class _AddBorrowedState extends State<AddBorrowed> {
                     ),
                   );
                 } else {
+                  print('Saving new borrowed book...');
                   borrowedBookBox.add(newBorrowedBook);
                   Navigator.pop(context, newBorrowedBook);
                 }
               },
-              child: Text('Save'),
+              style: Theme.of(context).elevatedButtonTheme.style,
+              child: Text(
+                'Save',
+                style: TextStyle(
+                  fontSize: 20,
+                  color:
+                      Theme.of(context).textTheme.button?.color ?? Colors.black,
+                ),
+              ),
             ),
           ),
           SizedBox(height: 20),
@@ -98,7 +106,15 @@ class _AddBorrowedState extends State<AddBorrowed> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              style: Theme.of(context).elevatedButtonTheme.style,
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  fontSize: 20,
+                  color:
+                      Theme.of(context).textTheme.button?.color ?? Colors.black,
+                ),
+              ),
             ),
           ),
         ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:mft_final_project/Theme.dart';
 import 'package:mft_final_project/module/books.dart';
 
 class AddBookPage extends StatefulWidget {
@@ -148,9 +147,15 @@ class _AddBookPageState extends State<AddBookPage> {
                       Navigator.pop(context, newBook);
                     }
                   },
-                  child: Text('Add',
-                      style: TextStyle(
-                          fontSize: 20, color: apptheme.primarycolor)),
+                  style: Theme.of(context).elevatedButtonTheme.style,
+                  child: Text(
+                    'Add',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).textTheme.button?.color ??
+                          Colors.black,
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 20),
@@ -160,7 +165,15 @@ class _AddBookPageState extends State<AddBookPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Cancel'),
+                  style: Theme.of(context).elevatedButtonTheme.style,
+                  child: Text(
+                    'Cancel',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).textTheme.button?.color ??
+                          Colors.black,
+                    ),
+                  ),
                 ),
               ),
             ],

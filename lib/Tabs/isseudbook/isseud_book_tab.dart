@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:mft_final_project/Tabs/isseudbook/buttonadd.dart';
+import 'package:mft_final_project/Tabs/isseudbook/isseudbookbuttonadd.dart';
 
 import '../../module/borrowed_book.dart';
 
@@ -138,7 +138,15 @@ class _IsseudBookState extends State<IsseudBook> {
                             }
                           });
                         },
-                        child: Text('Edit'),
+                        style: Theme.of(context).elevatedButtonTheme.style,
+                        child: Text(
+                          'Edit',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.button?.color ??
+                                Colors.black,
+                          ),
+                        ),
                       ),
                       ElevatedButton(
                         onPressed: () {
@@ -148,7 +156,15 @@ class _IsseudBookState extends State<IsseudBook> {
                             filterBorrowedBooks(searchController.text);
                           });
                         },
-                        child: Text('Return'),
+                        style: Theme.of(context).elevatedButtonTheme.style,
+                        child: Text(
+                          'Return',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Theme.of(context).textTheme.button?.color ??
+                                Colors.black,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -179,8 +195,16 @@ class _IsseudBookState extends State<IsseudBook> {
               }
             });
           },
-          child: const Text('Add Book'),
+          style: Theme.of(context).elevatedButtonTheme.style,
+          child: Text(
+            'Add Borrowed Book',
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.button?.color ?? Colors.black,
+            ),
+          ),
         ),
+        SizedBox(height: 20),
       ],
     );
   }

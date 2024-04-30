@@ -147,7 +147,6 @@ class _AddMemberState extends State<AddMember> {
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     if (widget.member != null) {
-                      // التحقق من تحديث العضو
                       setState(() {
                         widget.member!.Membercode = memberCodeController.text;
                         widget.member!.Membername = memberNameController.text;
@@ -204,7 +203,15 @@ class _AddMemberState extends State<AddMember> {
                     }
                   }
                 },
-                child: Text('Add'),
+                style: Theme.of(context).elevatedButtonTheme.style,
+                child: Text(
+                  'Add',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).textTheme.button?.color ??
+                        Colors.black,
+                  ),
+                ),
               ),
             ),
             SizedBox(height: 20),
@@ -214,7 +221,15 @@ class _AddMemberState extends State<AddMember> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                style: Theme.of(context).elevatedButtonTheme.style,
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).textTheme.button?.color ??
+                        Colors.black,
+                  ),
+                ),
               ),
             ),
           ],
