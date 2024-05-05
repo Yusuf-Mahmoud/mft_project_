@@ -16,6 +16,7 @@ class _AddBorrowedState extends State<AddBorrowed> {
   final TextEditingController memberNameController = TextEditingController();
   final TextEditingController memberCodeController = TextEditingController();
   final borrowedBookBox = Hive.box('borrowedBookBox');
+  final membersBox = Hive.box('members');
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +56,46 @@ class _AddBorrowedState extends State<AddBorrowed> {
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 80),
             child: ElevatedButton(
-              onPressed: () {
-                final newBorrowedBook = BorrowedBook(
-                  booktitle: bookTitleController.text,
-                  memberName: memberNameController.text,
-                  membercode: memberCodeController.text,
-                  borrowedDate: DateTime.now(),
-                  returnDate: DateTime.now().add(Duration(days: 3)),
+              onPressed: () async {
+                // تحقق مما إذا كان الكتاب والشخص موجودين في Hive
+                // final book = await borrowedBookBox.values.firstWhere(
+                //   (borrowedBook) =>
+                //       borrowedBook.booktitle.trim().toLowerCase() ==
+                //       bookTitleController.text.trim().toLowerCase(),
+                //   orElse: () => null,
+                // );
+
+                final member = await membersBox.values.firstWhere(
+                  (member) => member.Membercode == memberCodeController.text,
+                  orElse: () => null,
                 );
 
-                bool isAlreadyBorrowed = widget.borrowedBooks.any(
+                // تحقق مما إذا كان الشخص قد استعار كتابا بالفعل
+                final alreadyBorrowed = widget.borrowedBooks.any(
                     (borrowedBook) =>
-                        borrowedBook.membercode == newBorrowedBook.membercode);
+                        borrowedBook.membercode == memberCodeController.text);
 
-                if (isAlreadyBorrowed) {
+                // إذا كان الكتاب والشخص موجودين ولم يتم استعارة الكتاب من قبل الشخص، قم بإتمام عملية الاستعارة
+                if (member != null && !alreadyBorrowed) {
+                  final newBorrowedBook = BorrowedBook(
+                    booktitle: bookTitleController.text,
+                    memberName: memberNameController.text,
+                    membercode: memberCodeController.text,
+                    borrowedDate: DateTime.now(),
+                    returnDate: DateTime.now().add(Duration(days: 3)),
+                  );
+
+                  borrowedBookBox.add(newBorrowedBook);
+                  Navigator.pop(context, newBorrowedBook);
+                } else {
+                  // إذا لم يتم العثور على الكتاب أو الشخص، أو إذا تم استعارة الكتاب بالفعل من قبل الشخص، عرض رسالة خطأ
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(
                       title: Text('Error'),
-                      content: Text('This member has already borrowed a book.'),
+                      content: alreadyBorrowed
+                          ? Text('This member has already borrowed a book.')
+                          : Text('The book or the member does not exist.'),
                       actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context),
@@ -82,10 +104,6 @@ class _AddBorrowedState extends State<AddBorrowed> {
                       ],
                     ),
                   );
-                } else {
-                  print('Saving new borrowed book...');
-                  borrowedBookBox.add(newBorrowedBook);
-                  Navigator.pop(context, newBorrowedBook);
                 }
               },
               style: Theme.of(context).elevatedButtonTheme.style,

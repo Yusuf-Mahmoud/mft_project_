@@ -86,6 +86,7 @@ class _IsseudBookState extends State<IsseudBook> {
             itemCount: filteredBorrowedBooks.length,
             itemBuilder: (context, index) {
               final borrowedBook = filteredBorrowedBooks[index];
+              final isOverdue = borrowedBook.isOverdue();
               return ListTile(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -166,6 +167,11 @@ class _IsseudBookState extends State<IsseudBook> {
                           ),
                         ),
                       ),
+                      if (isOverdue)
+                        Icon(
+                          Icons.warning,
+                          color: Colors.red,
+                        ),
                     ],
                   ),
                 ),

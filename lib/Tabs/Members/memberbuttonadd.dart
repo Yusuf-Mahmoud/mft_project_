@@ -22,6 +22,7 @@ class _AddMemberState extends State<AddMember> {
   final membersBox = Hive.box('members');
 
   @override
+  // بتعمل تحقق علي البيانات اللي انا بكتبها
   void initState() {
     super.initState();
     if (widget.member != null) {
@@ -156,7 +157,6 @@ class _AddMemberState extends State<AddMember> {
                       });
                       Navigator.pop(context, widget.member);
                     } else {
-                      // التحقق من عضو جديد
                       bool isDuplicate = false;
                       for (var i = 0; i < membersBox.length; i++) {
                         Member existingMember = membersBox.getAt(i);

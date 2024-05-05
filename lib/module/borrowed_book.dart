@@ -37,6 +37,11 @@ class BorrowedBook extends HiveObject {
     };
   }
 
+  bool isOverdue() {
+    final difference = DateTime.now().difference(returnDate).inDays;
+    return difference > 0;
+  }
+
   factory BorrowedBook.fromMap(Map<String, dynamic> map) {
     return BorrowedBook(
       booktitle: map['booktitle'],

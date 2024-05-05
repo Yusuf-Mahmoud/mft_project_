@@ -96,7 +96,8 @@ class _MembersTabState extends State<MembersTab> {
                     Expanded(child: Text('${member.Membercode}')),
                     Expanded(child: Text('${member.Membername}')),
                     Expanded(child: Text('${member.Gender}')),
-                    Expanded(child: Text('${member.department}')),
+                    Expanded(
+                        child: Center(child: Text('${member.department}'))),
                     Expanded(child: Text('${member.Note}')),
                   ],
                 ),

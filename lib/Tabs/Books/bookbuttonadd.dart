@@ -40,9 +40,6 @@ class _AddBookPageState extends State<AddBookPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add Book'),
-      ),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Form(

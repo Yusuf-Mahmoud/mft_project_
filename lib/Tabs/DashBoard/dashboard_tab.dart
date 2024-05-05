@@ -1,16 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:mft_final_project/Theme.dart';
 import 'package:mft_final_project/module/books.dart';
+import 'package:mft_final_project/module/borrowed_book.dart';
 import 'package:mft_final_project/module/member.dart';
 
 class DashBoardTab extends StatefulWidget {
   final List<Books> books;
   final List<Member> members;
-  
+  final List<BorrowedBook> borrowedBooks;
 
-  DashBoardTab({required this.books, required this.members});
+  DashBoardTab(
+      {required this.books,
+      required this.members,
+      required this.borrowedBooks});
 
   @override
   State<DashBoardTab> createState() => _DashBoardTabState();
@@ -18,6 +24,32 @@ class DashBoardTab extends StatefulWidget {
 
 class _DashBoardTabState extends State<DashBoardTab> {
   var selectedDate = DateTime.now();
+  int countOverdueBorrowers() {
+    int count = 0;
+    DateTime now = DateTime.now();
+    for (var book in widget.borrowedBooks) {
+      if (now.difference(book.borrowedDate).inDays > 3) {
+        count++;
+      }
+    }
+    return count;
+  }
+
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer?.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +59,8 @@ class _DashBoardTabState extends State<DashBoardTab> {
     var dateFormat = DateFormat('MMM dd, yyyy | EEEE, hh:mm a ');
     int numberOfBooks = widget.books.length;
     int numberOfMembers = widget.members.length;
+    int numberOfBorrowedBooks = widget.borrowedBooks.length;
+    int numberOfOverdueBorrowers = countOverdueBorrowers();
 
     return Container(
       child: Column(
@@ -107,6 +141,7 @@ class _DashBoardTabState extends State<DashBoardTab> {
                     ],
                   ),
                 ),
+                SizedBox(width: 539),
                 Expanded(
                   child: Row(
                     children: [
@@ -148,6 +183,98 @@ class _DashBoardTabState extends State<DashBoardTab> {
                         ),
                       ),
                     ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 3 - 50,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                      color: const Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: apptheme.primarycolor,
+                          ),
+                          child:
+                              Icon(Icons.replay_outlined, color: Colors.white),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Number of Borrowed Books: $numberOfBorrowedBooks',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width / 3 - 50,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.1),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                      color: const Color(0xffffffff),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: apptheme.primarycolor,
+                          ),
+                          child: Icon(Icons.warning_amber_outlined,
+                              color: Colors.white),
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Number of Overdue Borrowers: $numberOfOverdueBorrowers',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],

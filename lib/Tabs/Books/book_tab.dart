@@ -48,40 +48,6 @@ class _BookTabState extends State<BookTab> {
             },
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Dialog(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    child: AddBookPage(),
-                  ),
-                );
-              },
-            ).then((newBook) {
-              if (newBook != null && newBook is Books) {
-                setState(() {
-                  books.add(newBook);
-                  filterBooks(searchController.text);
-                });
-              }
-            });
-          },
-          style: Theme.of(context).elevatedButtonTheme.style,
-          child: Text(
-            'Add Book',
-            style: TextStyle(
-              fontSize: 20,
-              color: Theme.of(context).textTheme.button?.color ?? Colors.black,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 40,
-        ),
         const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -134,12 +100,15 @@ class _BookTabState extends State<BookTab> {
                       '${book.genre}',
                     )),
                     Expanded(
-                      child: Text(
-                          '${DateFormat('yyyy').format(book.publishedDate)}'),
+                      child: Center(
+                        child: Text(
+                            '${DateFormat('yyyy').format(book.publishedDate)}'),
+                      ),
                     ),
-                    Expanded(child: Text('${book.copiesAvailable}')),
+                    Expanded(
+                        child: Center(child: Text('${book.copiesAvailable}'))),
                     Expanded(child: Text('${book.isbn}')),
-                    Expanded(child: Text('${book.bookpage}')),
+                    Expanded(child: Center(child: Text('${book.bookpage}'))),
                   ],
                 ),
                 trailing: Row(
@@ -180,6 +149,38 @@ class _BookTabState extends State<BookTab> {
             },
           ),
         ),
+        ElevatedButton(
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Dialog(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    child: AddBookPage(),
+                  ),
+                );
+              },
+            ).then((newBook) {
+              if (newBook != null && newBook is Books) {
+                setState(() {
+                  books.add(newBook);
+                  filterBooks(searchController.text);
+                });
+              }
+            });
+          },
+          style: Theme.of(context).elevatedButtonTheme.style,
+          child: Text(
+            'Add Book',
+            style: TextStyle(
+              fontSize: 20,
+              color: Theme.of(context).textTheme.button?.color ?? Colors.black,
+            ),
+          ),
+        ),
+        SizedBox(height: 20),
       ],
     );
   }

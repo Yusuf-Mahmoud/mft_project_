@@ -8,6 +8,7 @@ import 'package:mft_final_project/Tabs/Members/Members_tab.dart';
 import 'package:mft_final_project/Tabs/isseudbook/isseud_book_tab.dart';
 import 'package:mft_final_project/Tabs/settings/setting_tab.dart';
 import 'package:mft_final_project/Theme.dart';
+import 'package:mft_final_project/module/borrowed_book.dart';
 import 'package:mft_final_project/module/member.dart';
 
 import 'module/books.dart';
@@ -22,8 +23,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<Books> books = [];
   List<Member> members = [];
+  List<BorrowedBook> borrowedBooks = [];
   final booksBox = Hive.box('books');
   final membersBox = Hive.box('members');
+  final borrowedBookBox = Hive.box('borrowedBookBox'); // Correct variable name
   late List<Widget> tabs;
 
   @override
@@ -31,9 +34,13 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     books = booksBox.values.cast<Books>().toList();
     members = membersBox.values.cast<Member>().toList();
+    borrowedBooks = borrowedBookBox.values
+        .cast<BorrowedBook>()
+        .toList(); // Correct variable name
 
     tabs = [
-      DashBoardTab( books: books, members: members, ),
+      DashBoardTab(
+          books: books, members: members, borrowedBooks: borrowedBooks),
       IsseudBook(),
       BookTab(books: books),
       MembersTab(members: members),
