@@ -188,7 +188,6 @@ class _MembersTabState extends State<MembersTab> {
         return member.Memberid.toString().contains(query) ||
             member.Membercode.toLowerCase().contains(query.toLowerCase()) ||
             member.Membername.toLowerCase().contains(query.toLowerCase()) ||
-            member.Gender.toLowerCase().contains(query.toLowerCase()) ||
             member.department.toLowerCase().contains(query.toLowerCase()) ||
             member.Note.toLowerCase().contains(query.toLowerCase());
       }).toList();

@@ -70,12 +70,10 @@ class _AddBorrowedState extends State<AddBorrowed> {
                   orElse: () => null,
                 );
 
-                // تحقق مما إذا كان الشخص قد استعار كتابا بالفعل
                 final alreadyBorrowed = widget.borrowedBooks.any(
                     (borrowedBook) =>
                         borrowedBook.membercode == memberCodeController.text);
 
-                // إذا كان الكتاب والشخص موجودين ولم يتم استعارة الكتاب من قبل الشخص، قم بإتمام عملية الاستعارة
                 if (member != null && !alreadyBorrowed) {
                   final newBorrowedBook = BorrowedBook(
                     booktitle: bookTitleController.text,
@@ -88,7 +86,6 @@ class _AddBorrowedState extends State<AddBorrowed> {
                   borrowedBookBox.add(newBorrowedBook);
                   Navigator.pop(context, newBorrowedBook);
                 } else {
-                  // إذا لم يتم العثور على الكتاب أو الشخص، أو إذا تم استعارة الكتاب بالفعل من قبل الشخص، عرض رسالة خطأ
                   showDialog(
                     context: context,
                     builder: (context) => AlertDialog(

@@ -9,15 +9,18 @@ import 'package:mft_final_project/login.dart';
 import 'package:mft_final_project/module/books.dart';
 import 'package:mft_final_project/module/borrowed_book.dart';
 import 'package:mft_final_project/module/member.dart';
+import 'package:mft_final_project/module/user.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
+  Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(BooksAdapter());
   Hive.registerAdapter(MemberAdapter());
   Hive.registerAdapter(BorrowedBookAdapter());
   // await ScreenUtil.ensureScreenSize();
+  await Hive.openBox<User>('users');
   await Hive.openBox('members');
   await Hive.openBox('books');
   await Hive.openBox('borrowedBookBox');

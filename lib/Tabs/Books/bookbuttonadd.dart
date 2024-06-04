@@ -125,23 +125,87 @@ class _AddBookPageState extends State<AddBookPage> {
                 child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      final bookId = widget.book != null
-                          ? widget.book!.bookid
-                          : booksBox.length + 1;
-                      final newBook = Books(
-                        bookid: bookId,
-                        title: _titleController.text,
-                        genre: _genreController.text,
-                        publishedDate: DateTime(
-                            int.parse(_publishedDateController.text), 1, 1),
-                        copiesAvailable:
-                            int.parse(_copiesAvailableController.text),
-                        isbn: int.parse(_isbnController.text),
-                        bookpage: int.parse(_bookPageController.text),
-                      );
+                      bool titleExists = false;
+                      bool isbnExists = false;
+                      widget.book != null
+                          ? booksBox.values.forEach((existingBook) {
+                              if (existingBook.title == _titleController.text &&
+                                  existingBook.bookid != widget.book!.bookid) {
+                                titleExists = true;
+                              }
+                              if (existingBook.isbn.toString() ==
+                                      _isbnController.text &&
+                                  existingBook.bookid != widget.book!.bookid) {
+                                isbnExists = true;
+                              }
+                            })
+                          : booksBox.values.forEach((existingBook) {
+                              if (existingBook.title == _titleController.text) {
+                                titleExists = true;
+                              }
+                              if (existingBook.isbn.toString() ==
+                                  _isbnController.text) {
+                                isbnExists = true;
+                              }
+                            });
 
-                      booksBox.put(bookId, newBook);
-                      Navigator.pop(context, newBook);
+                      if (titleExists) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('Title Already Exists'),
+                              content: Text(
+                                  'A book with the same title already exists.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else if (isbnExists) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text('ISBN Already Exists'),
+                              content: Text(
+                                  'A book with the same ISBN already exists.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('OK'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      } else {
+                        final bookId = widget.book != null
+                            ? widget.book!.bookid
+                            : booksBox.length + 1;
+                        final newBook = Books(
+                          bookid: bookId,
+                          title: _titleController.text,
+                          genre: _genreController.text,
+                          publishedDate: DateTime(
+                              int.parse(_publishedDateController.text), 1, 1),
+                          copiesAvailable:
+                              int.parse(_copiesAvailableController.text),
+                          isbn: int.parse(_isbnController.text),
+                          bookpage: int.parse(_bookPageController.text),
+                        );
+
+                        booksBox.put(bookId, newBook);
+                        Navigator.pop(context, newBook);
+                      }
                     }
                   },
                   style: Theme.of(context).elevatedButtonTheme.style,

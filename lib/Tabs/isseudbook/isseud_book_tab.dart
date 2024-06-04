@@ -141,7 +141,7 @@ class _IsseudBookState extends State<IsseudBook> {
                         },
                         style: Theme.of(context).elevatedButtonTheme.style,
                         child: Text(
-                          'Edit',
+                          'Renew',
                           style: TextStyle(
                             fontSize: 20,
                             color: Theme.of(context).textTheme.button?.color ??

@@ -89,8 +89,8 @@ class _AddMemberState extends State<AddMember> {
                     : null,
                 decoration: InputDecoration(labelText: 'Gender'),
                 items: <String>[
-                  'male',
-                  'female',
+                  'Male',
+                  'Female',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
@@ -115,8 +115,8 @@ class _AddMemberState extends State<AddMember> {
                     : null,
                 decoration: InputDecoration(labelText: 'Department'),
                 items: <String>[
-                  'doctor',
-                  'student',
+                  'Doctor',
+                  'Student',
                 ].map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
