@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:mft_final_project/Tabs/Members/memberbuttonadd.dart';
 import 'package:mft_final_project/module/member.dart';
@@ -27,6 +28,11 @@ class _MembersTabState extends State<MembersTab> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    List<String> translatemember = [
+      AppLocalizations.of(context)!.note,
+    ];
+
     return Column(
       children: [
         Padding(
@@ -48,36 +54,75 @@ class _MembersTabState extends State<MembersTab> {
             },
           ),
         ),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text('ID',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Expanded(
-              child: Text('Code',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Expanded(
-              child: Text('Name',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Expanded(
-              child: Text('Gender',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Expanded(
-              child: Text('Department',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Expanded(
-              child: Text('Note',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            ),
-            Text('Actions',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red[200],
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Text(
+                      textAlign: TextAlign.center,
+                      'ID',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    'Code',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    'Name',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    'Gender',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    'Department',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    translatemember[0],
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    'Actions',
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 10),
         Expanded(
@@ -85,61 +130,106 @@ class _MembersTabState extends State<MembersTab> {
             itemCount: filteredMembers.length,
             itemBuilder: (context, index) {
               final member = filteredMembers[index];
-              return ListTile(
-                title: Row(
+              return Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
-                        child: Text(
-                      '${member.Memberid}',
-                    )),
-                    Expanded(child: Text('${member.Membercode}')),
-                    Expanded(child: Text('${member.Membername}')),
-                    Expanded(child: Text('${member.Gender}')),
-                    Expanded(
-                        child: Center(child: Text('${member.department}'))),
-                    Expanded(child: Text('${member.Note}')),
-                  ],
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: const Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddMember(member: member),
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red[200],
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        ).then((updatedMember) {
-                          if (updatedMember != null) {
-                            setState(() {
-                              membersBox.put(
-                                  updatedMember.Memberid, updatedMember);
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            '${member.Memberid}',
+                            style: TextStyle(fontSize: 17, color: textColor),
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          '${member.Membercode}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          '${member.Membername}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          '${member.Gender}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
+                    Expanded(
+                        flex: 2,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          '${member.department}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
+                    Expanded(
+                        flex: 3,
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          '${member.Note}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              color: Colors.pink,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddMember(member: member),
+                                  ),
+                                ).then((updatedMember) {
+                                  if (updatedMember != null) {
+                                    setState(() {
+                                      membersBox.put(updatedMember.Memberid,
+                                          updatedMember);
 
-                              int index = members.indexWhere(
-                                  (m) => m.Memberid == updatedMember.Memberid);
+                                      int index = members.indexWhere((m) =>
+                                          m.Memberid == updatedMember.Memberid);
 
-                              if (index != -1) {
-                                members[index] = updatedMember;
-                                filterMembers(searchController.text);
-                              }
-                            });
-                          }
-                        });
-                      },
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.person_remove_alt_1),
-                      onPressed: () {
-                        setState(() {
-                          membersBox.delete(member.Memberid);
-                          members.removeAt(index);
-                          filterMembers(searchController.text);
-                        });
-                      },
-                    ),
+                                      if (index != -1) {
+                                        members[index] = updatedMember;
+                                        filterMembers(searchController.text);
+                                      }
+                                    });
+                                  }
+                                });
+                              },
+                            ),
+                            IconButton(
+                              color: Colors.red,
+                              icon: const Icon(Icons.person_remove_alt_1),
+                              onPressed: () {
+                                setState(() {
+                                  membersBox.delete(member.Memberid);
+                                  members.removeAt(index);
+                                  filterMembers(searchController.text);
+                                });
+                              },
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               );

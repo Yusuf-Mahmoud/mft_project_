@@ -27,6 +27,8 @@ class _BookTabState extends State<BookTab> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyText1?.color;
+
     return Column(
       children: [
         Padding(
@@ -93,22 +95,42 @@ class _BookTabState extends State<BookTab> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: Text('${book.bookid}')),
-                    Expanded(child: Text('${book.title}')),
+                    Expanded(
+                        child: Text(
+                      '${book.bookid}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    )),
+                    Expanded(
+                        child: Text(
+                      '${book.title}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    )),
                     Expanded(
                         child: Text(
                       '${book.genre}',
+                      style: TextStyle(fontSize: 17, color: textColor),
                     )),
                     Expanded(
                       child: Center(
                         child: Text(
-                            '${DateFormat('yyyy').format(book.publishedDate)}'),
+                          '${DateFormat('yyyy').format(book.publishedDate)}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        ),
                       ),
                     ),
                     Expanded(
-                        child: Center(child: Text('${book.copiesAvailable}'))),
+                        child: Center(
+                            child: Text(
+                      '${book.copiesAvailable}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    ))),
                     Expanded(child: Text('${book.isbn}')),
-                    Expanded(child: Center(child: Text('${book.bookpage}'))),
+                    Expanded(
+                        child: Center(
+                            child: Text(
+                      '${book.bookpage}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    ))),
                   ],
                 ),
                 trailing: Row(

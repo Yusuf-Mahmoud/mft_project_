@@ -6,5 +6,9 @@
     "settings": "الأعدادات",
     "info": "المعلومات",
     "hello": "مرحبا,Admin!\uD83D\uDC4B",
-    "AllBooks" : "جميع الكتب"
+    "allbooks": "عدد الكتب :",
+    "allmembers": "عدد الاعضاء :",
+    "allissuedbooks": "عدد الكتب المعارة :",
+"overduebooks": "عدد الكتب المتأخرة :",
+    "note" : " ملاحظة "
 }

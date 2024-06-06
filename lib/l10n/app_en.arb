@@ -6,7 +6,11 @@
     "settings": "Settings",
     "info": "Info",
     "hello": "Hello,Admin!\uD83D\uDC4B",
-    "allbooks": "All Books"
+    "allbooks": "Number of Books:",
+    "allmembers": "Number of Members:",
+    "allissuedbooks": "Number of Issued Books:",
+    "overduebooks": "Number of Overdue Borrowers:",
+    "note" : "Note"
     
 
 }

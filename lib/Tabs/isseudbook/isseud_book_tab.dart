@@ -38,6 +38,8 @@ class _IsseudBookState extends State<IsseudBook> {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).textTheme.bodyText1?.color;
+
     return Column(
       children: [
         Padding(
@@ -45,7 +47,7 @@ class _IsseudBookState extends State<IsseudBook> {
           child: TextField(
             controller: searchController,
             decoration: InputDecoration(
-              labelText: 'Search',
+              labelText: 'Search Borrowed Books',
               prefixIcon: Icon(Icons.search),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
@@ -63,22 +65,28 @@ class _IsseudBookState extends State<IsseudBook> {
           Expanded(
             child: Text(
               'Book Title',
-              style: _textStyle(context),
+              style: TextStyle(fontSize: 17, color: textColor),
             ),
           ),
           Expanded(
-            child: Text('Member Name', style: _textStyle(context)),
+            child: Text('Member Name',
+                style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
-            child: Text('Member Code', style: _textStyle(context)),
+            child: Text('Member Code',
+                style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
-            child: Text('Borrowed Date', style: _textStyle(context)),
+            child: Text('Borrowed Date',
+                style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
-            child: Text('Return Date', style: _textStyle(context)),
+            child: Text('Return Date',
+                style: TextStyle(fontSize: 17, color: textColor)),
           ),
-          Expanded(child: Text('Actions', style: _textStyle(context))),
+          Expanded(
+              child: Text('Actions',
+                  style: TextStyle(fontSize: 17, color: textColor))),
         ]),
         const SizedBox(height: 10),
         Expanded(
@@ -94,86 +102,84 @@ class _IsseudBookState extends State<IsseudBook> {
                     Expanded(
                         child: Text(
                       '${borrowedBook.booktitle}',
-                      style: _textStyle(context),
+                      style: TextStyle(fontSize: 17, color: textColor),
                     )),
                     Expanded(
                         child: Text('${borrowedBook.memberName}',
-                            style: _textStyle(context))),
+                            style: TextStyle(fontSize: 17, color: textColor))),
                     Expanded(
                         child: Text('${borrowedBook.membercode}',
-                            style: _textStyle(context))),
+                            style: TextStyle(fontSize: 17, color: textColor))),
                     Expanded(
                       child: Text(
                           '${DateFormat('yyyy-MM-dd').format(borrowedBook.borrowedDate)}',
-                          style: _textStyle(context)),
+                          style: TextStyle(fontSize: 17, color: textColor)),
                     ),
                     Expanded(
                       child: Text(
                           '${DateFormat('yyyy-MM-dd').format(borrowedBook.returnDate)}',
-                          style: _textStyle(context)),
+                          style: TextStyle(fontSize: 17, color: textColor)),
                     ),
                   ],
                 ),
-                trailing: Expanded(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddBorrowed(
-                                borrowedBook: borrowedBook,
-                                borrowedBooks: [],
-                              ),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddBorrowed(
+                              borrowedBook: borrowedBook,
+                              borrowedBooks: [],
                             ),
-                          ).then((updateborrowed) {
-                            if (updateborrowed != null) {
-                              setState(() {
-                                borrowedBookBox.put(
-                                    updateborrowed.membercode, updateborrowed);
-                                borrowedBooks[index] = updateborrowed;
-                                filterBorrowedBooks(searchController.text);
-                              });
-                            }
-                          });
-                        },
-                        style: Theme.of(context).elevatedButtonTheme.style,
-                        child: Text(
-                          'Renew',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).textTheme.button?.color ??
-                                Colors.black,
                           ),
+                        ).then((updateborrowed) {
+                          if (updateborrowed != null) {
+                            setState(() {
+                              borrowedBookBox.put(
+                                  updateborrowed.membercode, updateborrowed);
+                              borrowedBooks[index] = updateborrowed;
+                              filterBorrowedBooks(searchController.text);
+                            });
+                          }
+                        });
+                      },
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      child: Text(
+                        'Renew',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).textTheme.button?.color ??
+                              Colors.black,
                         ),
                       ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            borrowedBookBox.deleteAt(index);
-                            borrowedBooks.removeAt(index);
-                            filterBorrowedBooks(searchController.text);
-                          });
-                        },
-                        style: Theme.of(context).elevatedButtonTheme.style,
-                        child: Text(
-                          'Return',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Theme.of(context).textTheme.button?.color ??
-                                Colors.black,
-                          ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          borrowedBookBox.deleteAt(index);
+                          borrowedBooks.removeAt(index);
+                          filterBorrowedBooks(searchController.text);
+                        });
+                      },
+                      style: Theme.of(context).elevatedButtonTheme.style,
+                      child: Text(
+                        'Return',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Theme.of(context).textTheme.button?.color ??
+                              Colors.black,
                         ),
                       ),
-                      if (isOverdue)
-                        Icon(
-                          Icons.warning,
-                          color: Colors.red,
-                        ),
-                    ],
-                  ),
+                    ),
+                    if (isOverdue)
+                      Icon(
+                        Icons.warning,
+                        color: Colors.red,
+                      ),
+                  ],
                 ),
               );
             },
