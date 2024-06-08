@@ -9,7 +9,7 @@ class Books {
   @HiveField(1)
   String title;
   @HiveField(2)
-  int isbn;
+  int? isbn;
   @HiveField(3)
   String genre;
   @HiveField(4)
@@ -17,12 +17,12 @@ class Books {
   @HiveField(5)
   int copiesAvailable;
   @HiveField(6)
-  int ?bookpage;
+  int? bookpage;
 
   Books({
     required this.bookid,
     required this.title,
-    required this.isbn,
+     this.isbn,
     required this.genre,
     required this.publishedDate,
     required this.copiesAvailable,

@@ -10,5 +10,14 @@
     "allmembers": "عدد الاعضاء :",
     "allissuedbooks": "عدد الكتب المعارة :",
 "overduebooks": "عدد الكتب المتأخرة :",
-    "note" : " ملاحظة "
+"code": " الرقم ",
+    "name": " الاسم ",
+    "gender": " الجنس ",
+    "department": " القسم ",
+"bookname": " اسم الكتاب ",
+    "note" : " ملاحظة ",
+    "actions": " العمليات ",
+    "addmember": " اضافة عضو ",
+    "addbook": " اضافة كتاب ",
+    "add": " اضافة "
 }

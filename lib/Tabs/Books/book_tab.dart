@@ -124,7 +124,11 @@ class _BookTabState extends State<BookTab> {
                       '${book.copiesAvailable}',
                       style: TextStyle(fontSize: 17, color: textColor),
                     ))),
-                    Expanded(child: Text('${book.isbn}')),
+                    Expanded(
+                        child: Text(
+                      '${book.isbn}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    )),
                     Expanded(
                         child: Center(
                             child: Text(

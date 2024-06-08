@@ -16,9 +16,9 @@ class _AddBookPageState extends State<AddBookPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _genreController = TextEditingController();
   final TextEditingController _publishedDateController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _copiesAvailableController =
-      TextEditingController();
+  TextEditingController();
   final TextEditingController _isbnController = TextEditingController();
   final TextEditingController _bookPageController = TextEditingController();
   final booksBox = Hive.box('books');
@@ -32,7 +32,7 @@ class _AddBookPageState extends State<AddBookPage> {
       _publishedDateController.text =
           DateFormat('yyyy').format(widget.book!.publishedDate);
       _copiesAvailableController.text = widget.book!.copiesAvailable.toString();
-      _isbnController.text = widget.book!.isbn.toString();
+      _isbnController.text = widget.book!.isbn?.toString() ?? '';
       _bookPageController.text = widget.book!.bookpage.toString();
     }
   }
@@ -57,14 +57,33 @@ class _AddBookPageState extends State<AddBookPage> {
                   return null;
                 },
               ),
-              TextFormField(
-                controller: _genreController,
+              DropdownButtonFormField<String>(
+                value: _genreController.text.isNotEmpty
+                    ? _genreController.text
+                    : null,
                 decoration: InputDecoration(labelText: 'Genre'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a genre';
-                  }
-                  return null;
+                items: <String>[
+                  'Mathematics / رياضيات',
+                  'Accounting/ محاسبة',
+                  'Management/ إدارة',
+                  'Economics / اقتصاد',
+                  'Computer Science / علوم الحاسب',
+                  'Various Sciences / علوم متنوعة',
+                  'Treatises /  رسائل علمية',
+                  'Islamic Sciences / العلوم الاسلامية',
+                  'Politics / سياسة',
+                  'Law / قانون',
+                  'Miscellaneous / متنوعة',
+                ].map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _genreController.text = newValue!;
+                  });
                 },
               ),
               TextFormField(
@@ -94,14 +113,13 @@ class _AddBookPageState extends State<AddBookPage> {
                 controller: _isbnController,
                 decoration: InputDecoration(labelText: 'ISBN'),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter an ISBN';
-                  }
-                  if (value.length != 13) {
-                    return 'ISBN must be 13 digits';
-                  }
-                  if (int.tryParse(value) == null) {
-                    return 'Please enter a valid ISBN';
+                  if (value != null && value.isNotEmpty) {
+                    if (value.length != 13) {
+                      return 'ISBN must be 13 digits';
+                    }
+                    if (int.tryParse(value) == null) {
+                      return 'Please enter a valid ISBN';
+                    }
                   }
                   return null;
                 },
@@ -111,7 +129,7 @@ class _AddBookPageState extends State<AddBookPage> {
                 decoration: InputDecoration(labelText: 'Book Page'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter the number of book page';
+                    return 'Please enter the number of book pages';
                   }
                   if (int.tryParse(value) == null) {
                     return 'Please enter a valid number';
@@ -129,25 +147,25 @@ class _AddBookPageState extends State<AddBookPage> {
                       bool isbnExists = false;
                       widget.book != null
                           ? booksBox.values.forEach((existingBook) {
-                              if (existingBook.title == _titleController.text &&
-                                  existingBook.bookid != widget.book!.bookid) {
-                                titleExists = true;
-                              }
-                              if (existingBook.isbn.toString() ==
-                                      _isbnController.text &&
-                                  existingBook.bookid != widget.book!.bookid) {
-                                isbnExists = true;
-                              }
-                            })
+                        if (existingBook.title == _titleController.text &&
+                            existingBook.bookid != widget.book!.bookid) {
+                          titleExists = true;
+                        }
+                        if (existingBook.isbn.toString() ==
+                            _isbnController.text &&
+                            existingBook.bookid != widget.book!.bookid) {
+                          isbnExists = true;
+                        }
+                      })
                           : booksBox.values.forEach((existingBook) {
-                              if (existingBook.title == _titleController.text) {
-                                titleExists = true;
-                              }
-                              if (existingBook.isbn.toString() ==
-                                  _isbnController.text) {
-                                isbnExists = true;
-                              }
-                            });
+                        if (existingBook.title == _titleController.text) {
+                          titleExists = true;
+                        }
+                        if (existingBook.isbn.toString() ==
+                            _isbnController.text) {
+                          isbnExists = true;
+                        }
+                      });
 
                       if (titleExists) {
                         showDialog(
@@ -198,8 +216,10 @@ class _AddBookPageState extends State<AddBookPage> {
                           publishedDate: DateTime(
                               int.parse(_publishedDateController.text), 1, 1),
                           copiesAvailable:
-                              int.parse(_copiesAvailableController.text),
-                          isbn: int.parse(_isbnController.text),
+                          int.parse(_copiesAvailableController.text),
+                          isbn: _isbnController.text.isNotEmpty
+                              ? int.parse(_isbnController.text)
+                              : null,
                           bookpage: int.parse(_bookPageController.text),
                         );
 

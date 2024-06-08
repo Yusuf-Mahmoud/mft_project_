@@ -1,0 +1,23 @@
+{
+  "home": "الرئيسية",
+  "issuedbook": "الإعارة",
+  "books" : "الكتاب",
+  "members" : "الاعضاء",
+  "settings": "الأعدادات",
+  "info": "المعلومات",
+  "hello": "مرحبا,Admin!\uD83D\uDC4B",
+  "allbooks": "عدد الكتب :",
+  "allmembers": "عدد الاعضاء :",
+  "allissuedbooks": "عدد الكتب المعارة :",
+  "overduebooks": "عدد الكتب المتأخرة :",
+  "code": " الرقم ",
+  "name": " الاسم ",
+  "gender": " الجنس ",
+  "department": " القسم ",
+  "bookname": " اسم الكتاب ",
+  "note" : " ملاحظة ",
+  "actions": " العمليات ",
+  "addmember": " اضافة عضو ",
+  "addbook": " اضافة كتاب ",
+  "add": " اضافة "
+}

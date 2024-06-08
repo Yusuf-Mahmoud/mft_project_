@@ -30,7 +30,13 @@ class _MembersTabState extends State<MembersTab> {
   Widget build(BuildContext context) {
     final textColor = Theme.of(context).textTheme.bodyText1?.color;
     List<String> translatemember = [
+      AppLocalizations.of(context)!.code,
+      AppLocalizations.of(context)!.name,
+      AppLocalizations.of(context)!.gender,
+      AppLocalizations.of(context)!.department,
       AppLocalizations.of(context)!.note,
+      AppLocalizations.of(context)!.actions,
+      AppLocalizations.of(context)!.addmember,
     ];
 
     return Column(
@@ -55,7 +61,7 @@ class _MembersTabState extends State<MembersTab> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -77,38 +83,6 @@ class _MembersTabState extends State<MembersTab> {
                 flex: 1,
                 child: Text(
                     textAlign: TextAlign.center,
-                    'Code',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    'Name',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    'Gender',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Expanded(
-                flex: 2,
-                child: Text(
-                    textAlign: TextAlign.center,
-                    'Department',
-                    style:
-                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-              ),
-              Expanded(
-                flex: 3,
-                child: Text(
-                    textAlign: TextAlign.center,
                     translatemember[0],
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -117,7 +91,39 @@ class _MembersTabState extends State<MembersTab> {
                 flex: 1,
                 child: Text(
                     textAlign: TextAlign.center,
-                    'Actions',
+                    translatemember[1],
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    translatemember[2],
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 2,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    translatemember[3],
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 3,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    translatemember[4],
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                    textAlign: TextAlign.center,
+                    translatemember[5],
                     style:
                         TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ),
@@ -260,7 +266,7 @@ class _MembersTabState extends State<MembersTab> {
           },
           style: Theme.of(context).elevatedButtonTheme.style,
           child: Text(
-            'Add Member',
+            translatemember[6],
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).textTheme.button?.color ?? Colors.black,

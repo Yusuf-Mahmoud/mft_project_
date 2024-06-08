@@ -63,28 +63,34 @@ class _IsseudBookState extends State<IsseudBook> {
         ),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Expanded(
+            flex: 1,
             child: Text(
               'Book Title',
               style: TextStyle(fontSize: 17, color: textColor),
             ),
           ),
           Expanded(
+            flex: 1,
             child: Text('Member Name',
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
+            flex: 1,
             child: Text('Member Code',
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
+            flex: 1,
             child: Text('Borrowed Date',
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
+            flex: 1,
             child: Text('Return Date',
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
+              flex: 1,
               child: Text('Actions',
                   style: TextStyle(fontSize: 17, color: textColor))),
         ]),
@@ -100,10 +106,12 @@ class _IsseudBookState extends State<IsseudBook> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
+                        flex: 1,
                         child: Text(
-                      '${borrowedBook.booktitle}',
-                      style: TextStyle(fontSize: 17, color: textColor),
-                    )),
+                          textAlign: TextAlign.left,
+                          '${borrowedBook.booktitle}',
+                          style: TextStyle(fontSize: 17, color: textColor),
+                        )),
                     Expanded(
                         child: Text('${borrowedBook.memberName}',
                             style: TextStyle(fontSize: 17, color: textColor))),
