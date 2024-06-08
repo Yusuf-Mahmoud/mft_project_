@@ -19,7 +19,7 @@ class BooksAdapter extends TypeAdapter<Books> {
     return Books(
       bookid: fields[0] as int,
       title: fields[1] as String,
-      isbn: fields[2] as int,
+      isbn: fields[2] as int?,
       genre: fields[3] as String,
       publishedDate: fields[4] as DateTime,
       copiesAvailable: fields[5] as int,

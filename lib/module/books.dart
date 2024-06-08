@@ -22,7 +22,7 @@ class Books {
   Books({
     required this.bookid,
     required this.title,
-     this.isbn,
+    this.isbn,
     required this.genre,
     required this.publishedDate,
     required this.copiesAvailable,
@@ -72,4 +72,6 @@ class Books {
     final box = await Hive.openBox<Books>('booksBox');
     return box.get(id);
   }
+
+  // minus number of copies of a book using the book title
 }

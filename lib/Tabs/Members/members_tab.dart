@@ -4,6 +4,8 @@ import 'package:hive/hive.dart';
 import 'package:mft_final_project/Tabs/Members/memberbuttonadd.dart';
 import 'package:mft_final_project/module/member.dart';
 
+import '../../core/functions.dart';
+
 class MembersTab extends StatefulWidget {
   final List<Member> members;
 
@@ -43,21 +45,128 @@ class _MembersTabState extends State<MembersTab> {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: TextField(
-            controller: searchController,
-            decoration: InputDecoration(
-              labelText: 'Search',
-              prefixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
-                borderSide: BorderSide(),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: searchController,
+                  decoration: InputDecoration(
+                    labelText: 'Search',
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide(),
+                    ),
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+                  ),
+                  onChanged: (value) {
+                    filterMembers(value);
+                  },
+                ),
               ),
-              contentPadding:
-                  EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
-            ),
-            onChanged: (value) {
-              filterMembers(value);
-            },
+              const SizedBox(width: 10),
+              GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.pinkAccent,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8),
+                            topRight: Radius.circular(8),
+                          ),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.5,
+                        child: Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            const Text(
+                              'Export As:',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            GestureDetector(
+                              onTap: () {
+                                Tools().exportToCSVMembers(members);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'Excel CSV file',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.pinkAccent,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 20),
+                            GestureDetector(
+                              onTap: () {
+                                Tools().exportToPDFMembers(members);
+                              },
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.05,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'PDF file',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: Colors.pinkAccent,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+
+                  // Tools().exportToCSVBooks(books);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.pinkAccent,
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  height: MediaQuery.of(context).size.height * 0.05,
+                  child: const Center(
+                    child: Text('Export Tables',
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Padding(

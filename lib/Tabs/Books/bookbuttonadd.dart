@@ -16,12 +16,12 @@ class _AddBookPageState extends State<AddBookPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _genreController = TextEditingController();
   final TextEditingController _publishedDateController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _copiesAvailableController =
-  TextEditingController();
+      TextEditingController();
   final TextEditingController _isbnController = TextEditingController();
   final TextEditingController _bookPageController = TextEditingController();
-  final booksBox = Hive.box('books');
+  final booksBox = Hive.box<Books>('booksBox');
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _AddBookPageState extends State<AddBookPage> {
           DateFormat('yyyy').format(widget.book!.publishedDate);
       _copiesAvailableController.text = widget.book!.copiesAvailable.toString();
       _isbnController.text = widget.book!.isbn?.toString() ?? '';
-      _bookPageController.text = widget.book!.bookpage.toString();
+      _bookPageController.text = widget.book!.bookpage?.toString() ?? '';
     }
   }
 
@@ -147,25 +147,25 @@ class _AddBookPageState extends State<AddBookPage> {
                       bool isbnExists = false;
                       widget.book != null
                           ? booksBox.values.forEach((existingBook) {
-                        if (existingBook.title == _titleController.text &&
-                            existingBook.bookid != widget.book!.bookid) {
-                          titleExists = true;
-                        }
-                        if (existingBook.isbn.toString() ==
-                            _isbnController.text &&
-                            existingBook.bookid != widget.book!.bookid) {
-                          isbnExists = true;
-                        }
-                      })
+                              if (existingBook.title == _titleController.text &&
+                                  existingBook.bookid != widget.book!.bookid) {
+                                titleExists = true;
+                              }
+                              if (existingBook.isbn?.toString() ==
+                                      _isbnController.text &&
+                                  existingBook.bookid != widget.book!.bookid) {
+                                isbnExists = true;
+                              }
+                            })
                           : booksBox.values.forEach((existingBook) {
-                        if (existingBook.title == _titleController.text) {
-                          titleExists = true;
-                        }
-                        if (existingBook.isbn.toString() ==
-                            _isbnController.text) {
-                          isbnExists = true;
-                        }
-                      });
+                              if (existingBook.title == _titleController.text) {
+                                titleExists = true;
+                              }
+                              if (existingBook.isbn?.toString() ==
+                                  _isbnController.text) {
+                                isbnExists = true;
+                              }
+                            });
 
                       if (titleExists) {
                         showDialog(
@@ -216,7 +216,7 @@ class _AddBookPageState extends State<AddBookPage> {
                           publishedDate: DateTime(
                               int.parse(_publishedDateController.text), 1, 1),
                           copiesAvailable:
-                          int.parse(_copiesAvailableController.text),
+                              int.parse(_copiesAvailableController.text),
                           isbn: _isbnController.text.isNotEmpty
                               ? int.parse(_isbnController.text)
                               : null,

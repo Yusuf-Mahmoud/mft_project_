@@ -12,16 +12,16 @@ class AddBorrowed extends StatefulWidget {
 }
 
 class _AddBorrowedState extends State<AddBorrowed> {
-  final TextEditingController bookTitleController = TextEditingController();
+  String? selectedBookTitle;
   final TextEditingController memberNameController = TextEditingController();
   final TextEditingController memberCodeController = TextEditingController();
   final borrowedBookBox = Hive.box('borrowedBookBox');
   final membersBox = Hive.box('members');
+  final books = Hive.box('books');
 
   @override
   Widget build(BuildContext context) {
     if (widget.borrowedBook != null) {
-      bookTitleController.text = widget.borrowedBook!.booktitle;
       memberNameController.text = widget.borrowedBook!.memberName;
       memberCodeController.text = widget.borrowedBook!.membercode;
     }
@@ -31,8 +31,20 @@ class _AddBorrowedState extends State<AddBorrowed> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 80, right: 80),
-            child: TextFormField(
-              controller: bookTitleController,
+            child: DropdownButtonFormField<String>(
+              value: selectedBookTitle,
+              items: books.values
+                  .map((book) => DropdownMenuItem<String>(
+                        value: book
+                            .title, // Assuming `title` is a property of `Books`
+                        child: Text(book.title),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectedBookTitle = value;
+                });
+              },
               decoration: InputDecoration(labelText: 'Book Title'),
             ),
           ),
@@ -76,14 +88,30 @@ class _AddBorrowedState extends State<AddBorrowed> {
 
                 if (member != null && !alreadyBorrowed) {
                   final newBorrowedBook = BorrowedBook(
-                    booktitle: bookTitleController.text,
+                    booktitle: selectedBookTitle.toString(),
                     memberName: memberNameController.text,
                     membercode: memberCodeController.text,
                     borrowedDate: DateTime.now(),
-                    returnDate: DateTime.now().add(Duration(days: 3)),
+                    returnDate: DateTime.now().add(const Duration(days: 3)),
                   );
 
                   borrowedBookBox.add(newBorrowedBook);
+                  try {
+                    final book = books.values.firstWhere(
+                      (element) =>
+                          element.title.toLowerCase() ==
+                          selectedBookTitle.toString().toLowerCase(),
+                    );
+                    book.copiesAvailable -= 1;
+
+                    await books.put(book.bookid, book);
+                  } catch (e) {
+                    // Handle the case where the book is not found
+                    print('Book not found');
+                  }
+
+                  setState(() {});
+
                   Navigator.pop(context, newBorrowedBook);
                 } else {
                   showDialog(

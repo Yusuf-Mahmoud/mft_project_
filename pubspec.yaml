@@ -46,6 +46,8 @@ dependencies:
   collection: ^1.18.0
   buttons_flutter: ^0.0.2+1
   switcher_button: ^0.0.4
+  csv: ^6.0.0
+  pdf: ^3.10.8
 
   flutter_localizations:
     sdk: flutter
