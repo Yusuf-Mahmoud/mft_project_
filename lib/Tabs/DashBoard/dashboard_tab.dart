@@ -118,7 +118,7 @@ class _DashBoardTabState extends State<DashBoardTab> {
                                 offset: const Offset(0, 3),
                               ),
                             ],
-                            color: const Color(0xffffffff),
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
@@ -162,7 +162,7 @@ class _DashBoardTabState extends State<DashBoardTab> {
                                 offset: const Offset(0, 3),
                               ),
                             ],
-                            color: const Color(0xffffffff),
+                            color: Theme.of(context).scaffoldBackgroundColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Row(
@@ -210,7 +210,7 @@ class _DashBoardTabState extends State<DashBoardTab> {
                             offset: const Offset(0, 3),
                           ),
                         ],
-                        color: const Color(0xffffffff),
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(
@@ -256,7 +256,7 @@ class _DashBoardTabState extends State<DashBoardTab> {
                             offset: const Offset(0, 3),
                           ),
                         ],
-                        color: const Color(0xffffffff),
+                        color: Theme.of(context).scaffoldBackgroundColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Row(

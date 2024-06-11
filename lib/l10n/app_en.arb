@@ -10,7 +10,7 @@
   "allmembers": "Number of Members:",
   "allissuedbooks": "Number of Issued Books:",
   "overduebooks": "Number of Overdue Borrowers:",
-  "code": "Code",
+  "code": "ID",
   "name": "Name",
   "gender": "Gender",
   "department": "Department",

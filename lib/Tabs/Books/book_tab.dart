@@ -271,12 +271,12 @@ class _BookTabState extends State<BookTab> {
                     IconButton(
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        Tools().exportToCSVBooks(books);
-                        // setState(() {
-                        //   booksBox.delete(book.bookid);
-                        //   books.removeAt(index);
-                        //   filterBooks(searchController.text);
-                        // });
+                        // Tools().exportToCSVBooks(books);
+                        setState(() {
+                          booksBox.delete(book.bookid);
+                          books.removeAt(index);
+                          filterBooks(searchController.text);
+                        });
                       },
                     ),
                   ],

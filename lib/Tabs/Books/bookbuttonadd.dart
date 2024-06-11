@@ -21,7 +21,7 @@ class _AddBookPageState extends State<AddBookPage> {
       TextEditingController();
   final TextEditingController _isbnController = TextEditingController();
   final TextEditingController _bookPageController = TextEditingController();
-  final booksBox = Hive.box<Books>('booksBox');
+  final booksBox = Hive.box('books');
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _AddBookPageState extends State<AddBookPage> {
           DateFormat('yyyy').format(widget.book!.publishedDate);
       _copiesAvailableController.text = widget.book!.copiesAvailable.toString();
       _isbnController.text = widget.book!.isbn?.toString() ?? '';
-      _bookPageController.text = widget.book!.bookpage?.toString() ?? '';
+      _bookPageController.text = widget.book!.bookpage.toString();
     }
   }
 
@@ -151,7 +151,7 @@ class _AddBookPageState extends State<AddBookPage> {
                                   existingBook.bookid != widget.book!.bookid) {
                                 titleExists = true;
                               }
-                              if (existingBook.isbn?.toString() ==
+                              if (existingBook.isbn.toString() ==
                                       _isbnController.text &&
                                   existingBook.bookid != widget.book!.bookid) {
                                 isbnExists = true;
@@ -161,7 +161,7 @@ class _AddBookPageState extends State<AddBookPage> {
                               if (existingBook.title == _titleController.text) {
                                 titleExists = true;
                               }
-                              if (existingBook.isbn?.toString() ==
+                              if (existingBook.isbn.toString() ==
                                   _isbnController.text) {
                                 isbnExists = true;
                               }
