@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mft_final_project/Tabs/Books/bookbuttonadd.dart';
+import 'package:mft_final_project/Theme.dart';
 import 'package:mft_final_project/module/books.dart';
 
 import '../../core/functions.dart';
@@ -30,6 +32,16 @@ class _BookTabState extends State<BookTab> {
   @override
   Widget build(BuildContext context) {
     final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    List<String> translatebook = [
+      AppLocalizations.of(context)!.title,
+      AppLocalizations.of(context)!.genre,
+      AppLocalizations.of(context)!.published,
+      AppLocalizations.of(context)!.copies,
+      AppLocalizations.of(context)!.iSBN,
+      AppLocalizations.of(context)!.bookPages,
+      AppLocalizations.of(context)!.actions,
+      AppLocalizations.of(context)!.addbook,
+    ];
 
     return Column(
       children: [
@@ -62,8 +74,8 @@ class _BookTabState extends State<BookTab> {
                     context: context,
                     builder: (context) {
                       return Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.pinkAccent,
+                        decoration: BoxDecoration(
+                          color: apptheme.primarycolor,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8),
@@ -85,7 +97,7 @@ class _BookTabState extends State<BookTab> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToCSVBooks(books);
+                                Tools().exportToCSVBooks(books, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -95,12 +107,12 @@ class _BookTabState extends State<BookTab> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     'Excel CSV file',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.pinkAccent,
+                                      color: apptheme.primarycolor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -110,7 +122,7 @@ class _BookTabState extends State<BookTab> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToPDFBooks(books);
+                                Tools().exportToPDFBooks(books, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -142,7 +154,7 @@ class _BookTabState extends State<BookTab> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
+                    color: Color(0xffF86676),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   width: MediaQuery.of(context).size.width * 0.1,
@@ -151,7 +163,7 @@ class _BookTabState extends State<BookTab> {
                     child: Text('Export Tables',
                         style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -159,7 +171,7 @@ class _BookTabState extends State<BookTab> {
             ],
           ),
         ),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
@@ -167,30 +179,30 @@ class _BookTabState extends State<BookTab> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('Title',
+              child: Text(translatebook[0],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('Genre',
+              child: Text(translatebook[1],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('Published Date',
+              child: Text(translatebook[2],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('Copies Available',
+              child: Text(translatebook[3],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('ISBN',
+              child: Text(translatebook[4],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
             Expanded(
-              child: Text('bookpage',
+              child: Text(translatebook[5],
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             ),
-            Text('Actions',
+            Text(translatebook[6],
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           ],
         ),
@@ -309,7 +321,7 @@ class _BookTabState extends State<BookTab> {
           },
           style: Theme.of(context).elevatedButtonTheme.style,
           child: Text(
-            'Add Book',
+            translatebook[7],
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).textTheme.button?.color ?? Colors.black,

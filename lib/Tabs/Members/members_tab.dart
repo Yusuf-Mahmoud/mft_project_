@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:mft_final_project/Tabs/Members/memberbuttonadd.dart';
+import 'package:mft_final_project/Theme.dart';
 import 'package:mft_final_project/module/member.dart';
 
 import '../../core/functions.dart';
@@ -72,8 +73,8 @@ class _MembersTabState extends State<MembersTab> {
                     context: context,
                     builder: (context) {
                       return Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.pinkAccent,
+                        decoration: BoxDecoration(
+                          color: apptheme.primarycolor,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8),
@@ -95,7 +96,7 @@ class _MembersTabState extends State<MembersTab> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToCSVMembers(members);
+                                Tools().exportToCSVMembers(members, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -105,12 +106,12 @@ class _MembersTabState extends State<MembersTab> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     'Excel CSV file',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.pinkAccent,
+                                      color: apptheme.primarycolor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -120,7 +121,7 @@ class _MembersTabState extends State<MembersTab> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToPDFMembers(members);
+                                Tools().exportToPDFMembers(members, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -152,7 +153,7 @@ class _MembersTabState extends State<MembersTab> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
+                    color: Color(0xffF86676),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   width: MediaQuery.of(context).size.width * 0.1,
@@ -161,7 +162,7 @@ class _MembersTabState extends State<MembersTab> {
                     child: Text('Export Tables',
                         style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),

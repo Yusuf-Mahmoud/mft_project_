@@ -48,6 +48,8 @@ dependencies:
   switcher_button: ^0.0.4
   csv: ^6.0.0
   pdf: ^3.10.8
+  url_launcher: ^6.0.17
+  flutter_gemini: ^2.0.4
 
   flutter_localizations:
     sdk: flutter

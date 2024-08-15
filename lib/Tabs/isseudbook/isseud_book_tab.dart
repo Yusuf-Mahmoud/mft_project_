@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:mft_final_project/Tabs/isseudbook/isseudbookbuttonadd.dart';
+import 'package:mft_final_project/Theme.dart';
 
 import '../../core/functions.dart';
 import '../../module/borrowed_book.dart';
@@ -41,6 +43,16 @@ class _IsseudBookState extends State<IsseudBook> {
   @override
   Widget build(BuildContext context) {
     final textColor = Theme.of(context).textTheme.bodyText1?.color;
+    List<String> translateisseud = [
+      AppLocalizations.of(context)!.bookname,
+      AppLocalizations.of(context)!.isname,
+      AppLocalizations.of(context)!.iscode,
+      AppLocalizations.of(context)!.issuedate,
+      AppLocalizations.of(context)!.duedate,
+      AppLocalizations.of(context)!.actions,
+      AppLocalizations.of(context)!.adddbook,
+      AppLocalizations.of(context)!.returnbook,
+    ];
 
     return Column(
       children: [
@@ -73,8 +85,8 @@ class _IsseudBookState extends State<IsseudBook> {
                     context: context,
                     builder: (context) {
                       return Container(
-                        decoration: const BoxDecoration(
-                          color: Colors.pinkAccent,
+                        decoration: BoxDecoration(
+                          color: apptheme.primarycolor,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8),
                             topRight: Radius.circular(8),
@@ -96,7 +108,8 @@ class _IsseudBookState extends State<IsseudBook> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToCSVBorrowedBooks(borrowedBooks);
+                                Tools().exportToCSVBorrowedBooks(
+                                    borrowedBooks, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -106,12 +119,12 @@ class _IsseudBookState extends State<IsseudBook> {
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                child: const Center(
+                                child: Center(
                                   child: Text(
                                     'Excel CSV file',
                                     style: TextStyle(
                                       fontSize: 20,
-                                      color: Colors.pinkAccent,
+                                      color: apptheme.primarycolor,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -121,7 +134,8 @@ class _IsseudBookState extends State<IsseudBook> {
                             const SizedBox(height: 20),
                             GestureDetector(
                               onTap: () {
-                                Tools().exportToPDFBorrowedBooks(borrowedBooks);
+                                Tools().exportToPDFBorrowedBooks(
+                                    borrowedBooks, context);
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width * 0.3,
@@ -153,16 +167,16 @@ class _IsseudBookState extends State<IsseudBook> {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.pinkAccent,
+                    color: Color(0xffF86676),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   width: MediaQuery.of(context).size.width * 0.1,
                   height: MediaQuery.of(context).size.height * 0.05,
-                  child: const Center(
+                  child: Center(
                     child: Text('Export Tables',
                         style: TextStyle(
                             fontSize: 16,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -174,33 +188,33 @@ class _IsseudBookState extends State<IsseudBook> {
           Expanded(
             flex: 1,
             child: Text(
-              'Book Title',
+              translateisseud[0],
               style: TextStyle(fontSize: 17, color: textColor),
             ),
           ),
           Expanded(
             flex: 1,
-            child: Text('Member Name',
+            child: Text(translateisseud[1],
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
             flex: 1,
-            child: Text('Member Code',
+            child: Text(translateisseud[2],
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
             flex: 1,
-            child: Text('Borrowed Date',
+            child: Text(translateisseud[3],
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
             flex: 1,
-            child: Text('Return Date',
+            child: Text(translateisseud[4],
                 style: TextStyle(fontSize: 17, color: textColor)),
           ),
           Expanded(
               flex: 1,
-              child: Text('Actions',
+              child: Text(translateisseud[5],
                   style: TextStyle(fontSize: 17, color: textColor))),
         ]),
         const SizedBox(height: 10),
@@ -214,19 +228,21 @@ class _IsseudBookState extends State<IsseudBook> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    Text(
+                      textAlign: TextAlign.left,
+                      '${borrowedBook.booktitle}',
+                      style: TextStyle(fontSize: 17, color: textColor),
+                    ),
                     Expanded(
-                        flex: 1,
-                        child: Text(
-                          textAlign: TextAlign.left,
-                          '${borrowedBook.booktitle}',
-                          style: TextStyle(fontSize: 17, color: textColor),
-                        )),
+                        child: Center(
+                      child: Text('${borrowedBook.memberName}',
+                          style: TextStyle(fontSize: 17, color: textColor)),
+                    )),
                     Expanded(
-                        child: Text('${borrowedBook.memberName}',
-                            style: TextStyle(fontSize: 17, color: textColor))),
-                    Expanded(
-                        child: Text('${borrowedBook.membercode}',
-                            style: TextStyle(fontSize: 17, color: textColor))),
+                        child: Center(
+                      child: Text('${borrowedBook.membercode}',
+                          style: TextStyle(fontSize: 17, color: textColor)),
+                    )),
                     Expanded(
                       child: Text(
                           '${DateFormat('yyyy-MM-dd').format(borrowedBook.borrowedDate)}',
@@ -242,37 +258,37 @@ class _IsseudBookState extends State<IsseudBook> {
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AddBorrowed(
-                              borrowedBook: borrowedBook,
-                              borrowedBooks: [],
-                            ),
-                          ),
-                        ).then((updateborrowed) {
-                          if (updateborrowed != null) {
-                            setState(() {
-                              borrowedBookBox.put(
-                                  updateborrowed.membercode, updateborrowed);
-                              borrowedBooks[index] = updateborrowed;
-                              filterBorrowedBooks(searchController.text);
-                            });
-                          }
-                        });
-                      },
-                      style: Theme.of(context).elevatedButtonTheme.style,
-                      child: Text(
-                        'Renew',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).textTheme.button?.color ??
-                              Colors.black,
-                        ),
-                      ),
-                    ),
+                    // ElevatedButton(
+                    //   onPressed: () {
+                    //     Navigator.push(
+                    //       context,
+                    //       MaterialPageRoute(
+                    //         builder: (context) => AddBorrowed(
+                    //           borrowedBook: borrowedBook,
+                    //           borrowedBooks: [],
+                    //         ),
+                    //       ),
+                    //     ).then((updateborrowed) {
+                    //       if (updateborrowed != null) {
+                    //         setState(() {
+                    //           borrowedBookBox.put(
+                    //               updateborrowed.membercode, updateborrowed);
+                    //           borrowedBooks[index] = updateborrowed;
+                    //           filterBorrowedBooks(searchController.text);
+                    //         });
+                    //       }
+                    //     });
+                    //   },
+                    //   style: Theme.of(context).elevatedButtonTheme.style,
+                    //   child: Text(
+                    //     'Renew',
+                    //     style: TextStyle(
+                    //       fontSize: 20,
+                    //       color: Theme.of(context).textTheme.button?.color ??
+                    //           Colors.black,
+                    //     ),
+                    //   ),
+                    // ),
                     ElevatedButton(
                       onPressed: () {
                         setState(() async {
@@ -299,7 +315,7 @@ class _IsseudBookState extends State<IsseudBook> {
                       },
                       style: Theme.of(context).elevatedButtonTheme.style,
                       child: Text(
-                        'Return',
+                        translateisseud[7],
                         style: TextStyle(
                           fontSize: 20,
                           color: Theme.of(context).textTheme.button?.color ??
@@ -342,7 +358,7 @@ class _IsseudBookState extends State<IsseudBook> {
           },
           style: Theme.of(context).elevatedButtonTheme.style,
           child: Text(
-            'Add Borrowed Book',
+            translateisseud[6],
             style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).textTheme.button?.color ?? Colors.black,

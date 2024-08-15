@@ -76,7 +76,28 @@ class _AddBorrowedState extends State<AddBorrowed> {
                 //       bookTitleController.text.trim().toLowerCase(),
                 //   orElse: () => null,
                 // );
-
+                final book = books.values.firstWhere(
+                  (element) =>
+                      element.title.toLowerCase() ==
+                      selectedBookTitle.toString().toLowerCase(),
+                );
+                if (book.copiesAvailable < 3) {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text('Error'),
+                      content:
+                          Text('This book is not available for borrowing.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                  return;
+                }
                 final member = await membersBox.values.firstWhere(
                   (member) => member.Membercode == memberCodeController.text,
                   orElse: () => null,
@@ -97,11 +118,8 @@ class _AddBorrowedState extends State<AddBorrowed> {
 
                   borrowedBookBox.add(newBorrowedBook);
                   try {
-                    final book = books.values.firstWhere(
-                      (element) =>
-                          element.title.toLowerCase() ==
-                          selectedBookTitle.toString().toLowerCase(),
-                    );
+                    //make sure that copiesAvailable is not less than 2
+
                     book.copiesAvailable -= 1;
 
                     await books.put(book.bookid, book);

@@ -18,7 +18,23 @@
   "actions": "Actions",
   "addmember": "Add Member",
   "addbook": "Add Book",
-  "add": "Add"
+  "add": "Add",
+    "cancel": "Cancel",
+  "title": "Title",
+  "genre": "Genre",
+  "published": "Published Date",
+  "copies" : "Copies Available",
+  "iSBN": "ISBN",
+  "bookPages": "BookPages",
+  "bookname": "Book Title",
+  "iscode"  : "Member Code",
+    "isname" : "Member Name",
+  "issuedate": "Borrowed Date",
+    "duedate": "Retrun Date",
+   "adddbook": "Add Borrowed Book",
+  "returnbook": "Return Book",
+  "author": "Author"
+
 
 
 }

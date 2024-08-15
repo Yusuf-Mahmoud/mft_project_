@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:mft_final_project/Tabs/Ai/gemini_tab.dart';
 import 'package:mft_final_project/Tabs/Books/book_tab.dart';
 import 'package:mft_final_project/Tabs/DashBoard/dashboard_tab.dart';
-import 'package:mft_final_project/Tabs/Help/help_tab.dart';
 import 'package:mft_final_project/Tabs/Members/members_tab.dart';
 import 'package:mft_final_project/Tabs/isseudbook/isseud_book_tab.dart';
 import 'package:mft_final_project/Tabs/settings/setting_tab.dart';
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
       BookTab(books: books),
       MembersTab(members: members),
       SettingsTab(),
-      HelpTab(),
+      GeminiScreen(),
     ];
   }
 
@@ -199,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mody.jumpToPage(5);
                           },
                           icon: Icon(
-                            Icons.info_outline,
+                            Icons.multitrack_audio_outlined,
                             color: colorIndex == 5
                                 ? apptheme.primarycolor
                                 : apptheme.unselectedcolor,
